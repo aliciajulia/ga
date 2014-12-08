@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 04 dec 2014 kl 14:48
+-- Tid vid skapande: 08 dec 2014 kl 10:53
 -- Serverversion: 5.6.20
 -- PHP-version: 5.5.15
 
@@ -41,6 +41,20 @@ CREATE TABLE IF NOT EXISTS `inlog` (
 INSERT INTO `inlog` (`anvnam`, `losord`) VALUES
 ('inger', 'inger');
 
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `tider`
+--
+
+DROP TABLE IF EXISTS `tider`;
+CREATE TABLE IF NOT EXISTS `tider` (
+  `year` int(4) NOT NULL,
+  `month` int(2) NOT NULL,
+  `day` int(2) NOT NULL,
+  `time` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Index för dumpade tabeller
 --
@@ -50,6 +64,12 @@ INSERT INTO `inlog` (`anvnam`, `losord`) VALUES
 --
 ALTER TABLE `inlog`
  ADD PRIMARY KEY (`anvnam`);
+
+--
+-- Index för tabell `tider`
+--
+ALTER TABLE `tider`
+ ADD PRIMARY KEY (`year`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

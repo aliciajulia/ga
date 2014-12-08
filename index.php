@@ -8,7 +8,6 @@ session_start();
 
 if (isset($_POST['logout'])) {
     $_SESSION["inlog"] = 0;
-    echo "loggar ut...";
 }
 
 
@@ -23,32 +22,31 @@ if (isset($_POST["anvnam"])) {
     $stmt->execute();
     $login = $stmt->fetch();
 }
+?>
 
-    ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Välkommen, logga in.</title>
+    </head>
+    <body>
 
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Välkommen, logga in.</title>
-        </head>
-        <body>
+        <?php
+        if (!empty($login)) {
+            $_SESSION["inlog"] = 1;
+            $_SESSION["namn"] = $anvnam;
+            echo '<p>Välkommen, du är nu inloggad!</p>';
+        } else {
+            echo 'Vänligen logga in med ett registrerat användarnamn';
+        }
 
-            <?php
-            if (!empty($login)) {
-                $_SESSION["inlog"] = 1;
-                $_SESSION["namn"] = $anvnam;
-                echo '<p>Välkommen, du är nu inloggad!</p>';
-            } else {
-//        echo 'Något stämde inte!';
-            }
-        
         if ($_SESSION["inlog"] == 1) {
             echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
             echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
         }
         if ($_SESSION["inlog"] == 0) {
-           echo "<form method = 'POST'>
+            echo "<form method = 'POST'>
         <p>Användarnamn:</p> <input type = 'text' name = 'anvnam' required>
         <p>Lösenord:</p><input type = 'text' name = 'losord' required>
         <input type = 'submit' value = 'Logga in'>
