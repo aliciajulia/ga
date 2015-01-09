@@ -5,11 +5,13 @@ define("DB_PASSWORD", "");
 define("DB_NAME", "ga");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
+
+
 //lägg till
 if (isset($_POST["start"])) {
     $start = filter_input(INPUT_POST, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
     $slut = filter_input(INPUT_POST, 'slut', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "INSERT INTO `tid`(`id`, `starttid`, `sluttid`) VALUES ('',$start,$slut)";
+    $sql = "INSERT INTO `tider`(`id`, `starttid`, `sluttid`) VALUES ('','$start','$slut')";
 //    echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":start", $start);
@@ -17,18 +19,18 @@ if (isset($_POST["start"])) {
     $stmt->execute();
     $login = $stmt->fetch();
 }
-
+var_dump($sql);
 //redigera
 //if (isset($_POST[])){
 //    
 //}
 //ta bort
-if (isset($_POST["startD"])) {
-    $startD = filter_input(INPUT_POST, 'startD', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "DELETE FROM `tid` WHERE starttid=startD";
+if (isset($_POST["Delete"])) {
+    $Delete = filter_input(INPUT_POST, 'Delete', FILTER_SANITIZE_SPECIAL_CHARS);
+    $sql = "DELETE FROM `tider` WHERE starttid=startD";
 
     $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":startD", $startD);
+    $stmt->bindParam(":start", $start);
     $stmt->execute();
     $login = $stmt->fetch();
 }
@@ -42,8 +44,8 @@ if (isset($_POST["startD"])) {
     <body>
         <form method = 'POST'>
             Lägg till en tid
-            <p>Starttid ÅÅ-MM-DD TT:MM:SS</p> <input type = 'number' name = 'start' required>
-            <p>Sluttid ÅÅ-MM-DD TT:MM:SS</p> <input type = 'number' name = 'slut' required>
+            <p>Starttid ÅÅÅÅ-MM-DD TT:MM:SS</p> <input type = 'text' name = 'start' required>
+            <p>Sluttid ÅÅÅÅ-MM-DD TT:MM:SS</p> <input type = 'text' name = 'slut' required>
             <input type = 'submit' value = 'Lägg till'>
         </form>
 
@@ -51,7 +53,7 @@ if (isset($_POST["startD"])) {
             <br>
             <!--visa alla tider-->
             <?php
-            $sql = "SELECT * FROM tid";
+            $sql = "SELECT * FROM tider";
             $stmt = $dbh->prepare($sql);
             $stmt->execute();
             $tider = $stmt->fetchAll();
@@ -66,6 +68,8 @@ if (isset($_POST["startD"])) {
                 echo "<input type = 'submit' value = 'Delete'>";
                 echo "<br>";
             }
+            var_dump($tider);
+            
             ?>
 
  <!--            <p>Ny starttid ÅÅ-MM-DD TT:MM:SS</p> <input type = 'number' name = 'startR' required>
