@@ -19,20 +19,20 @@ if (isset($_POST["start"])) {
     $stmt->execute();
     $login = $stmt->fetch();
 }
-var_dump($sql);
+//var_dump($sql);
 //redigera
 //if (isset($_POST[])){
 //    
 //}
 //ta bort
-if (isset($_POST["Delete"])) {
-    $Delete = filter_input(INPUT_POST, 'Delete', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "DELETE FROM `tider` WHERE starttid=startD";
-
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":start", $start);
-    $stmt->execute();
-    $login = $stmt->fetch();
+if (isset($_POST["delete"])) {
+    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+    $sql = "DELETE FROM `tider` WHERE id=id";
+//    var_dump($_POST);
+//    $stmt = $dbh->prepare($sql);
+//    $stmt->bindParam(":start", $start); 
+//    $stmt->execute();
+//    $login = $stmt->fetch();
 }
 ?>
 <!DOCTYPE html>
@@ -60,14 +60,19 @@ if (isset($_POST["Delete"])) {
 
             foreach ($tider as $tid) {
                 echo "<br>";
+                echo $tid["id"];
+                echo "<br>";
                 echo $tid["starttid"];
                 echo "<br>";
                 echo $tid ["sluttid"];
                 echo "<br>";
                 echo "<input type = 'submit' value = 'Redigera'>";
-                echo "<input type = 'submit' value = 'Delete'>";
+                echo "<form method='POST'><input type='text' value='".$tid["id"]."' name='id'><input type = 'submit' value = 'Delete' name='delete'></form>";
                 echo "<br>";
             }
+            
+            
+            
             var_dump($tider);
             
             ?>
