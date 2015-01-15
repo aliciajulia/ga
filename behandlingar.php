@@ -8,6 +8,8 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
 if (isset($_POST["add"])){
     $behandlingar = filter_input(INPUT_POST, 'behandlingar', FILTER_SANITIZE_SPECIAL_CHARS);
     $langd = filter_input(INPUT_POST, 'langd', FILTER_SANITIZE_SPECIAL_CHARS);
+    $sql = "INSERT INTO `behandlingar`(`namn`, `längd (min)`) VALUES ('$behandlingar','$langd'";
+    
     
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(":behandlingar", $behandlingar);
