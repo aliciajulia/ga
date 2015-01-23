@@ -38,7 +38,64 @@ if (isset($_POST["sparalos"])) {
 
 //redigera tider
 if (isset($_POST["redtid"])) {
-    include 'tider.php';
+include 'tider.php';
+
+    //lägg till
+    if (isset($_POST["start"])) {
+        $start = filter_input(INPUT_POST, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
+        $slut = filter_input(INPUT_POST, 'slut', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sql = "INSERT INTO `tider`(`id`, `starttid`, `sluttid`) VALUES ('','$start','$slut')";
+//    echo $sql;
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":start", $start);
+        $stmt->bindParam(":slut", $slut);
+        $stmt->execute();
+        $login = $stmt->fetch();
+    }
+
+//ta bort
+    if (isset($_POST["delete"])) {
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sql = "DELETE FROM `tider` WHERE id=$id";
+//    var_dump($_POST);
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $login = $stmt->fetch();
+    }
+//redigera tider
+    if (isset($_POST["andra"])) {
+        $startred = filter_input(INPUT_POST, 'startred', FILTER_SANITIZE_SPECIAL_CHARS);
+        $slutred = filter_input(INPUT_POST, 'slutred', FILTER_SANITIZE_SPECIAL_CHARS);
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sql = "UPDATE `tider` SET `starttid`='$startred',`sluttid`='$slutred' WHERE id='$id'";
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":startred", $startred);
+        $stmt->bindParam(":slutred", $slutred);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $login = $stmt->fetch();
+    }
+}
+
+//Lägg till behandling
+if (isset($_POST["lagbeh"])) {
+    include 'behandlingar.php';
+
+//lägg till behandlingarna
+    if (isset($_POST["add"])) {
+        $behandling = filter_input(INPUT_POST, 'behandling', FILTER_SANITIZE_SPECIAL_CHARS);
+        $langd = filter_input(INPUT_POST, 'langd', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sql = "INSERT INTO `behandlingar`(`namn`, `längd`) VALUES ('$behandling','$langd')";
+
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":behandling", $behandling);
+        $stmt->bindParam(":langd", $langd);
+        $stmt->execute();
+        $login = $stmt->fetch();
+    }
 }
 ?>
 
@@ -70,6 +127,7 @@ if (isset($_POST["redtid"])) {
             }
 
             echo "<form method='POST'><input type='submit' value='Redigera Tider' name='redtid'></form>";
+            echo "<form method='POST'><input type='submit' value='Lägg till behandling' name='lagbeh'></form>";
         }
         if ($_SESSION["inlog"] == 0) {
             echo "<form method = 'POST'>
