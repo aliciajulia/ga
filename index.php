@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");
@@ -38,10 +39,30 @@ if (isset($_POST["sparalos"])) {
 
 //redigera tider
 if (isset($_POST["redtid"])) {
-include 'tider.php';
+//include 'tider.php';
+    ?>
+    <html>
+        <head>
+            <meta charset="UTF-8">
 
-    //lägg till
-    if (isset($_POST["start"])) {
+        </head>
+        <body>
+            <form method = 'POST'>
+                Lägg till en tid
+                <p>Starttid ÅÅÅÅ-MM-DD TT:MM:SS</p> <input type = 'text' name = 'start' required>
+                <p>Sluttid ÅÅÅÅ-MM-DD TT:MM:SS</p> <input type = 'text' name = 'slut' required>
+                <input type = 'submit' value = 'Lägg till' name='addt'>
+            </form>
+
+            <form method = 'POST'></form>
+            <br>
+        </body>
+    </html>
+    <?php
+//lägg till
+
+    if (isset($_POST["addt"])) {
+
         $start = filter_input(INPUT_POST, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
         $slut = filter_input(INPUT_POST, 'slut', FILTER_SANITIZE_SPECIAL_CHARS);
         $sql = "INSERT INTO `tider`(`id`, `starttid`, `sluttid`) VALUES ('','$start','$slut')";
@@ -77,18 +98,64 @@ include 'tider.php';
         $stmt->execute();
         $login = $stmt->fetch();
     }
-}
 
+    $sql = "SELECT * FROM tider";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $tider = $stmt->fetchAll();
+
+
+    foreach ($tider as $tid) {
+        echo "<br>" . $tid["id"];
+        echo "<br>" . $tid["starttid"];
+        echo "<br>" . $tid ["sluttid"];
+        echo "<br><form method='POST'><input type = 'submit' value = 'Redigera' name='redigera'><input type='hidden' value='" . $tid["id"] . "' name='id'></form>";
+
+        if (isset($_POST["redigera"]) and $_POST["id"] == $tid["id"]) {
+            echo "<form method='POST'><input type='text' value='" . $tid["starttid"] . "' name='startred'> <br>";
+            echo "<input type='text' value='" . $tid["sluttid"] . "' name='slutred'> <br>";
+            echo "<input type='hidden' value='" . $tid["id"] . "' name='id' ><br>";
+            echo "<input type='submit' value='Ändra' name='andra'></form>";
+        }
+        echo "<form method='POST'><input type='hidden' value='" . $tid["id"] . "' name='id'><input type = 'submit' value = 'Delete' name='delete'></form>";
+        echo "<br>";
+    }
+}
+var_dump($_POST);
+//SLUT PÅ TIDER
 //Lägg till behandling
 if (isset($_POST["lagbeh"])) {
-    include 'behandlingar.php';
-
+//    include 'behandlingar.php';
 //lägg till behandlingarna
-    if (isset($_POST["add"])) {
+    ?>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+            <form method = 'POST'>
+                Lägg till en behandling
+                <p>Namn</p> <input type = 'text' name = 'behandling' required>
+                <p>Längd (min)</p> <input type = 'text' name = 'langd' required>
+                <input type = 'submit' value = 'Lägg till' name="addb">
+            </form>
+        </body>
+    </html>
+    <?php
+    $sql = "SELECT * FROM behandlingar";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $behandlingar = $stmt->fetchAll();
+
+    foreach ($behandlingar as $behandling) {
+        echo "<br>" . $behandling["id"];
+        echo "<br>" . $behandling["namn"];
+        echo "<br>" . $behandling ["längd"] . "min <br>";
+    }
+    if (isset($_POST["addb"])) {
         $behandling = filter_input(INPUT_POST, 'behandling', FILTER_SANITIZE_SPECIAL_CHARS);
         $langd = filter_input(INPUT_POST, 'langd', FILTER_SANITIZE_SPECIAL_CHARS);
         $sql = "INSERT INTO `behandlingar`(`namn`, `längd`) VALUES ('$behandling','$langd')";
-
 
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(":behandling", $behandling);
@@ -97,9 +164,10 @@ if (isset($_POST["lagbeh"])) {
         $login = $stmt->fetch();
     }
 }
+//SLUT PÅ BEHANDLINGAR
 ?>
 
-<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -107,35 +175,35 @@ if (isset($_POST["lagbeh"])) {
     </head>
     <body>
 
-        <?php
-        if (!empty($login)) {
-            $_SESSION["inlog"] = 1;
-            $_SESSION["namn"] = $anvnam;
-            echo '<p>Välkommen, du är nu inloggad!</p>';
-        } else {
-            echo 'Vänligen logga in med ett registrerat användarnamn';
-        }
+<?php
+if (!empty($login)) {
+    $_SESSION["inlog"] = 1;
+    $_SESSION["namn"] = $anvnam;
+    echo '<p>Välkommen, du är nu inloggad!</p>';
+} else {
+//    echo 'Vänligen logga in med ett registrerat användarnamn';
+}
 
-        if ($_SESSION["inlog"] == 1) {
-            echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
-            echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
+if ($_SESSION["inlog"] == 1) {
+    echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
+    echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
 
-            echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos'></form>";
-            if (isset($_POST["bytlos"])) {
-                echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"
-                . "<input type='submit' value='Spara' name='sparalos'></form>";
-            }
+    echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos'></form>";
+    if (isset($_POST["bytlos"])) {
+        echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"
+        . "<input type='submit' value='Spara' name='sparalos'></form>";
+    }
 
-            echo "<form method='POST'><input type='submit' value='Redigera Tider' name='redtid'></form>";
-            echo "<form method='POST'><input type='submit' value='Lägg till behandling' name='lagbeh'></form>";
-        }
-        if ($_SESSION["inlog"] == 0) {
-            echo "<form method = 'POST'>
+    echo "<form method='POST'><input type='submit' value='Redigera Tider' name='redtid'></form>";
+    echo "<form method='POST'><input type='submit' value='Lägg till behandling' name='lagbeh'></form>";
+}
+if ($_SESSION["inlog"] == 0) {
+    echo "<form method = 'POST'>
         <p>Användarnamn:</p> <input type = 'text' name = 'anvnam' required>
-        <p>Lösenord:</p><input type = 'text' name = 'losord' required>
+        <p>Lösenord:</p><input type = 'password' name = 'losord' required>
         <input type = 'submit' value = 'Logga in'>
         </form>";
-        }
-        ?>
+}
+?>
     </body>
 </html>

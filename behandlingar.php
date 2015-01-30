@@ -19,7 +19,7 @@
 //}
 ?>
 
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -30,20 +30,20 @@
             Lägg till en behandling
             <p>Namn</p> <input type = 'text' name = 'behandling' required>
             <p>Längd (min)</p> <input type = 'text' name = 'langd' required>
-            <input type = 'submit' value = 'Lägg till' name="add">
+            <input type = 'submit' value = 'Lägg till' name="addb">
         </form>
         <?php
         //Visa ut alla behandlingar
-        $sql = "SELECT * FROM behandlingar";
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute();
-        $behandlingar = $stmt->fetchAll();
-
-        foreach ($behandlingar as $behandling) {
-            echo "<br>" . $behandling["id"];
-            echo "<br>" . $behandling["namn"];
-            echo "<br>" . $behandling ["längd"] . "min <br>";
-        }
+//        $sql = "SELECT * FROM behandlingar";
+//        $stmt = $dbh->prepare($sql);
+//        $stmt->execute();
+//        $behandlingar = $stmt->fetchAll();
+//
+//        foreach ($behandlingar as $behandling) {
+//            echo "<br>" . $behandling["id"];
+//            echo "<br>" . $behandling["namn"];
+//            echo "<br>" . $behandling ["längd"] . "min <br>";
+//        }
         ?>
     </body>
 </html>
