@@ -21,7 +21,7 @@ if (isset($_POST["anvnam"])) {
     $stmt->bindParam(":anvnam", $anvnam);
     $stmt->bindParam(":losord", $losord);
     $stmt->execute();
-    $login = $stmt->fetch();
+    $login = $stmt->fetchAll();
 }
 
 //byt lösenord
@@ -34,7 +34,7 @@ if (isset($_POST["sparalos"])) {
     $stmt->bindParam(":nylos", $nylos);
     $stmt->bindParam(":anvnam", $anvnam);
     $stmt->execute();
-    $login = $stmt->fetch();
+    $login = $stmt->fetchAll();
 }
 
 //redigera tider
@@ -71,7 +71,7 @@ if (isset($_POST["redtid"])) {
         $stmt->bindParam(":start", $start);
         $stmt->bindParam(":slut", $slut);
         $stmt->execute();
-        $login = $stmt->fetch();
+        $login = $stmt->fetchAll();
     }
 
 //ta bort
@@ -82,7 +82,7 @@ if (isset($_POST["redtid"])) {
         $stmt = $dbh->prepare($sql);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
-        $login = $stmt->fetch();
+        $login = $stmt->fetchAll();
     }
 //redigera tider
     if (isset($_POST["andra"])) {
@@ -96,7 +96,7 @@ if (isset($_POST["redtid"])) {
         $stmt->bindParam(":slutred", $slutred);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
-        $login = $stmt->fetch();
+        $login = $stmt->fetchAll();
     }
 
     $sql = "SELECT * FROM tider";
@@ -161,7 +161,7 @@ if (isset($_POST["lagbeh"])) {
         $stmt->bindParam(":behandling", $behandling);
         $stmt->bindParam(":langd", $langd);
         $stmt->execute();
-        $login = $stmt->fetch();
+        $login = $stmt->fetchAll();
     }
 }
 //SLUT PÅ BEHANDLINGAR
