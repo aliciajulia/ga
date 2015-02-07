@@ -101,7 +101,7 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
 ?>
 <a href="index.php">Tillbaka</a>
         
-  <a href='index.php'>Tillbaka</a>
+  <!--<a href='index.php'>Tillbaka</a>-->
 
     </body>
 </html>

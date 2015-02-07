@@ -6,7 +6,7 @@ define("DB_PASSWORD", "");
 define("DB_NAME", "ga");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 session_start();
-$_SESSION["inlog"] = 0;
+//$_SESSION["inlog"] = 0;
 
 if (isset($_POST['logout'])) {
     $_SESSION["inlog"] = 0;
@@ -201,10 +201,9 @@ if ($_SESSION["inlog"] == 1) {
 
     echo "<a href=tider.php>Redigera Tider</a><br>";
 //    echo "<form method='POST'><input type='submit' value='Lägg till behandling' name='lagbeh'></form>";
-echo "<a href=behandlingar.php>Lägg Till Behandlingar</a><br>";
-    echo "<a href='tider.php'>Redigera tider</a><br>";
+
 //    echo "<form method='POST'><a href='behandlingar.php'><input type='submit' value='Lägg till behandling' name='lagbeh'></a></form>";
-    echo "<a href='behandlingar.php'>Lägg till behandling</a>";
+    echo "<a href='behandlingar.php'>Lägg till behandling</a><br>";
 
 }
 if ($_SESSION["inlog"] == 0) {

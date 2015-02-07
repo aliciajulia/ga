@@ -5,6 +5,18 @@ define("DB_PASSWORD", "");
 define("DB_NAME", "ga");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
+if (isset($_POST["addt"])) {
+    $start = filter_input(INPUT_POST, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
+    $slut = filter_input(INPUT_POST, 'slut', FILTER_SANITIZE_SPECIAL_CHARS);
+    $sql = "INSERT INTO `tider`(`id`, `starttid`, `sluttid`) VALUES ('','$start','$slut')";
+//    echo $sql;
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(":start", $start);
+    $stmt->bindParam(":slut", $slut);
+    $stmt->execute();
+    $login = $stmt->fetch();
+}
+
 if (isset($_POST["delete"])) {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
     $sql = "DELETE FROM `tider` WHERE id=$id";
