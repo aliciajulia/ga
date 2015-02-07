@@ -26,17 +26,17 @@ if (isset($_POST["anvnam"])) {
 }
 
 //byt lösenord
-if (isset($_POST["sparalos"])) {
-    $nylos = filter_input(INPUT_POST, 'nylos', FILTER_SANITIZE_SPECIAL_CHARS);
-    $anvnam = $_SESSION["namn"];
-    $sql = "UPDATE `inlog` SET `losord`='$nylos' WHERE `anvnam`='$anvnam'";
-
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":nylos", $nylos);
-    $stmt->bindParam(":anvnam", $anvnam);
-    $stmt->execute();
-    $login = $stmt->fetchAll();
-}
+//if (isset($_POST["sparalos"])) {
+//    $nylos = filter_input(INPUT_POST, 'nylos', FILTER_SANITIZE_SPECIAL_CHARS);
+//    $anvnam = $_SESSION["namn"];
+//    $sql = "UPDATE `inlog` SET `losord`='$nylos' WHERE `anvnam`='$anvnam'";
+//
+//    $stmt = $dbh->prepare($sql);
+//    $stmt->bindParam(":nylos", $nylos);
+//    $stmt->bindParam(":anvnam", $anvnam);
+//    $stmt->execute();
+//    $login = $stmt->fetchAll();
+//}
 
 //redigera tider
 //if (isset($_POST["redtid"])) {
@@ -190,11 +190,12 @@ if (!empty($login)) {
 if ($_SESSION["inlog"] == 1) {
     echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
     echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
-    echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos'></form>";
-    if (isset($_POST["bytlos"])) {
-        echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"
-        . "<input type='submit' value='Spara' name='sparalos'></form>";
-    }
+//    echo "<form method='POST'><input type='submit' value='Byt lösenord' name='bytlos'></form>";
+    echo "<a href=bytLos.php>Byt Lösenord</a><br>";
+//    if (isset($_POST["bytlos"])) {
+//        echo "Ange nytt lösenord <form method='POST'><input type='text' name='nylos'>"
+//        . "<input type='submit' value='Spara' name='sparalos'></form>";
+//    }
 
 //    echo "<form method='POST'><input type='submit' value='Redigera Tider' name='redtid'></form>";
 
