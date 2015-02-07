@@ -199,8 +199,8 @@ if ($_SESSION["inlog"] == 1) {
 //    echo "<form method='POST'><input type='submit' value='Redigera Tider' name='redtid'></form>";
 
     echo "<a href=tider.php>Redigera Tider</a><br>";
-    echo "<form method='POST'><input type='submit' value='Lägg till behandling' name='lagbeh'></form>";
-
+//    echo "<form method='POST'><input type='submit' value='Lägg till behandling' name='lagbeh'></form>";
+echo "<a href=behandlingar.php>Lägg Till Behandlingar</a><br>";
     echo "<a href='tider.php'>Redigera tider</a><br>";
 //    echo "<form method='POST'><a href='behandlingar.php'><input type='submit' value='Lägg till behandling' name='lagbeh'></a></form>";
     echo "<a href='behandlingar.php'>Lägg till behandling</a>";
