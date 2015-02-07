@@ -194,7 +194,8 @@ if ($_SESSION["inlog"] == 1) {
         . "<input type='submit' value='Spara' name='sparalos'></form>";
     }
 
-    echo "<form method='POST'><input type='submit' value='Redigera Tider' name='redtid'></form>";
+//    echo "<form method='POST'><input type='submit' value='Redigera Tider' name='redtid'></form>";
+    echo "<a href=tider.php>Redigera Tider</a><br>";
     echo "<form method='POST'><input type='submit' value='Lägg till behandling' name='lagbeh'></form>";
 }
 if ($_SESSION["inlog"] == 0) {

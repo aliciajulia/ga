@@ -1,9 +1,9 @@
 <?php
-//define("DB_SERVER", "localhost");
-//define("DB_USER", "root");
-//define("DB_PASSWORD", "");
-//define("DB_NAME", "ga");
-//$dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
+define("DB_SERVER", "localhost");
+define("DB_USER", "root");
+define("DB_PASSWORD", "");
+define("DB_NAME", "ga");
+$dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
 //lägg till
 if (isset($_POST["addt"])) {
@@ -19,29 +19,29 @@ if (isset($_POST["addt"])) {
 }
 
 //ta bort
-if (isset($_POST["delete"])) {
-    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "DELETE FROM `tider` WHERE id=$id";
-//    var_dump($_POST);
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":id", $id);
-    $stmt->execute();
-    $login = $stmt->fetch();
-}
-//redigera tider
-if (isset($_POST["andra"])) {
-    $startred = filter_input(INPUT_POST, 'startred', FILTER_SANITIZE_SPECIAL_CHARS);
-    $slutred = filter_input(INPUT_POST, 'slutred', FILTER_SANITIZE_SPECIAL_CHARS);
-    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "UPDATE `tider` SET `starttid`='$startred',`sluttid`='$slutred' WHERE id='$id'";
-
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":startred", $startred);
-    $stmt->bindParam(":slutred", $slutred);
-    $stmt->bindParam(":id", $id);
-    $stmt->execute();
-    $login = $stmt->fetch();
-}
+//if (isset($_POST["delete"])) {
+//    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+//    $sql = "DELETE FROM `tider` WHERE id=$id";
+////    var_dump($_POST);
+//    $stmt = $dbh->prepare($sql);
+//    $stmt->bindParam(":id", $id);
+//    $stmt->execute();
+//    $login = $stmt->fetch();
+//}
+////redigera tider
+//if (isset($_POST["andra"])) {
+//    $startred = filter_input(INPUT_POST, 'startred', FILTER_SANITIZE_SPECIAL_CHARS);
+//    $slutred = filter_input(INPUT_POST, 'slutred', FILTER_SANITIZE_SPECIAL_CHARS);
+//    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+//    $sql = "UPDATE `tider` SET `starttid`='$startred',`sluttid`='$slutred' WHERE id='$id'";
+//
+//    $stmt = $dbh->prepare($sql);
+//    $stmt->bindParam(":startred", $startred);
+//    $stmt->bindParam(":slutred", $slutred);
+//    $stmt->bindParam(":id", $id);
+//    $stmt->execute();
+//    $login = $stmt->fetch();
+//}
 ?>
 <!--<!DOCTYPE html>-->
 <html>
@@ -50,7 +50,7 @@ if (isset($_POST["andra"])) {
         <title>Tider</title>
     </head>
     <body>
-        <form method = 'POST'>
+        <form method = 'POST' action='doTider.php'>
             Lägg till en tid
             <p>Starttid ÅÅÅÅ-MM-DD TT:MM:SS</p> <input type = 'text' name = 'start' required>
             <p>Sluttid ÅÅÅÅ-MM-DD TT:MM:SS</p> <input type = 'text' name = 'slut' required>
@@ -95,6 +95,6 @@ foreach ($tider as $tid) {
 
 //        var_dump($tider);
 ?>
-
+<a href="index.php">Tillbaka</a>
     </body>
 </html>
