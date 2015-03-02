@@ -12,9 +12,12 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $tider = $stmt->fetchAll();
 var_dump($tider);
+$datumArray = array();
+$idArray = array();
 
-foreach ($tider as $tid){
-    $datum = array();
-echo substr($tid["starttid"], 0, 10) . "<br>";
-
+foreach ($tider as $tid) {
+    $datumArray[] = substr($tid["starttid"], 0, 10);
+    $idArray[] = $tid["id"];
 }
+
+header ('Location: bokaJson.json');
