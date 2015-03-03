@@ -26,7 +26,7 @@ if (isset($_GET["add"])) {
         <title>Lägg till behandlingar</title>
     </head>
     <body>
-        <form method = 'POST'>
+        <form method = 'POST' action='doBehandlingar.php'>
             Lägg till en behandling
             <p>Namn</p> <input type = 'text' name = 'behandling' required>
             <p>Längd (min)</p> <input type = 'text' name = 'langd' required>

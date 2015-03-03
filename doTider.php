@@ -1,4 +1,5 @@
 <?php
+
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");
 define("DB_PASSWORD", "");
@@ -8,14 +9,26 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
 if (isset($_POST["addt"])) {
     $start = filter_input(INPUT_POST, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
     $slut = filter_input(INPUT_POST, 'slut', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "INSERT INTO `tider`(`id`, `starttid`, `sluttid`) VALUES ('','$start','$slut')";
-//    echo $sql;
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":start", $start);
-    $stmt->bindParam(":slut", $slut);
-    $stmt->execute();
-    $login = $stmt->fetch();
+    $startHour = (int) substr($start, 11, 12);
+    $slutHour = (int) substr($slut, 11, 12);
+    $datum = substr($start, 0, 11);
+
+
+    for ($i = $startHour; $i < $slutHour; $i++) {
+        $slutH = $i + 1;
+        $starttid = $datum . $i . ":00:00";
+        $sluttid = $datum . $slutH . ":00:00";
+
+
+        $sql = "INSERT INTO `tider`(`id`, `starttid`, `sluttid`) VALUES ('','$starttid','$sluttid')";
+        $stmt = $dbh->prepare($sql);
+//        $stmt->bindParam(":start", $dateStart);
+//        $stmt->bindParam(":slut", $dateSlut);
+        $stmt->execute();
+        $login = $stmt->fetch();
+    }
 }
+
 
 if (isset($_POST["delete"])) {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -40,7 +53,7 @@ if (isset($_POST["andra"])) {
     $stmt->execute();
     $login = $stmt->fetch();
 }
-header ('Location: index.php');
+header('Location: index.php');
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

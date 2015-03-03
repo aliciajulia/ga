@@ -16,6 +16,7 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
     $stmt->execute();
     $login = $stmt->fetch();
 //}
+    header ('Location: index.php');
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
