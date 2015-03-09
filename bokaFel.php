@@ -76,7 +76,7 @@ function boka($bokaId, $kundNamn, $kundMail, $kundTelefon) {
 
 //            $sql = "INSERT INTO `tider`(`kund`, `kundMail`, `kundTelefon`) VALUES ($kundNamn,$kundMail,$kundTelefon)";
 
-            $sql = "SELECT * FROM tider";
+            $sql = "SELECT * FROM tider WHERE bokad=0";
             $stmt = $dbh->prepare($sql);
             $stmt->execute();
             $datum = $stmt->fetchAll();
