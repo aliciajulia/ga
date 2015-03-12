@@ -17,11 +17,11 @@
     </body>
 </html>
 <?php
-//$date = time();
-//
-//$day = date('d', $date);
-//$month = date('m', $date);
-//$year = date('Y', $date);
+define("DB_SERVER", "localhost");
+define("DB_USER", "root");
+define("DB_PASSWORD", "");
+define("DB_NAME", "ga");
+$dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
 function korKalender($year, $month, $day) {
     $first_day = mktime(0, 0, 0, $month, 1, $year);
@@ -83,17 +83,23 @@ function korKalender($year, $month, $day) {
     }
     echo '</div></div>';
 }
+
+function ledigaDatum($available, $month, $day) {
+    if ($month == substr($available["starttid"], 5, 2) && $day == substr($available["starttid"], 8, 2)) {
+        echo "<form method=POST><input type='hidden' value='" . $available['id'] . "' name='clickedDateId'></form>";
+    }
+}
+function ledigaTider($available) {
+    foreach ($available as $ava) {
+        echo substr($ava["starttid"], 11, 8) . "<br>";
+        echo "<form method=POST><input type='submit' value='Boka tid' name='bokaTid'><input type='hidden' value='" . $tid['id'] . "' name='bokaTidId'></form>";
+    }
+}
+    $sql = "SELECT * FROM tider WHERE bokad=0";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $available = $stmt->fetchAll();
+
+    ledigaDatum($available, $month, $day);
 //
-//if (isset($_POST["nastaManad"])) {
-//    if ($month == 12) {
-//        $month = 1;
-//        $year++;
-//        korKalender($year, $month, $day);
-//    } else {
-//        $month++;
-//        korKalender($year, $month, $day);
-//    }
-//} else {
-//    korKalender($year, $month, $day);
-//}
-?>
+    ?>
