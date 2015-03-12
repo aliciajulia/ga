@@ -11,17 +11,18 @@ $(document).ready(function() {
         if (month == 12) {
             month = 1;
             year++;
-            getFailOutput(year, month, day);
+            getJson(year, month, day);
         } else {
             month++;
-            getFailOutput(year, month, day);
+            getJson(year, month, day);
         }
     });
 //$(".nastaManad").INTEclick(function(){
 //    korKalender(year, month, day);
 //});
+    function getJson() {
     $.getJSON(
             "kalender.php"
             
-            );
+            );}
 });
