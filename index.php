@@ -6,7 +6,7 @@ define("DB_PASSWORD", "");
 define("DB_NAME", "ga");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 session_start();
-//$_SESSION["inlog"] = 0;
+//$_SESSION["inlog"];
 
 if (isset($_POST['logout'])) {
     $_SESSION["inlog"] = 0;
@@ -33,32 +33,39 @@ if (isset($_POST["anvnam"])) {
         <title>Välkommen, logga in.</title>
     </head>
     <body>
-<!--<form method='POST'><a href='behandlingar.php'><input type='submit' value='Lägg till behandling' name='lagbeh'></a></form>-->
-<?php
-if (!empty($login)) {
-    $_SESSION["inlog"] = 1;
-    $_SESSION["namn"] = $anvnam;
-    echo '<p>Välkommen, du är nu inloggad!</p>';
-} else {
+
+        <?php
+        if (!empty($login)) {
+            $_SESSION["inlog"] = 1;
+            $_SESSION["namn"] = $anvnam;
+            echo '<p>Välkommen, du är nu inloggad!</p>';
+        } else {
 //    echo 'Vänligen logga in med ett registrerat användarnamn';
-}
+        }
 
-if ($_SESSION["inlog"] == 1) {
-    echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
-    echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
-    echo "<a href=bytLos.php>Byt Lösenord</a><br>";
+        if ($_SESSION["inlog"] == 1) {
+            echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
+            echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
+//            
+            echo "<form method='POST' action='tider.php'><input type='submit' value='Byt Lösenord' name='bytLos'>
+        <input='hidden' value='1' name='1'></form>";
+            echo "<form method='POST' action='tider.php'><input type='submit' value='Redigera Tider' name='redigeraTider'>
+        <input='hidden' value='1' name='1'></form>";
 
-    echo "<a href=tider.php>Redigera Tider</a><br>";
-    echo "<a href='behandlingar.php'>Lägg till behandling</a><br>";
-
-}
-if ($_SESSION["inlog"] == 0) {
-    echo "<form method = 'POST'>
+            echo "<form method='POST' action='tider.php'><input type='submit' value='Lägg till behandling' name='laggTillBehandling'>
+        <input='hidden' value='1' name='1'></form>";
+        } else {
+            echo "<form method = 'POST'>
         <p>Användarnamn:</p> <input type = 'text' name = 'anvnam' required>
         <p>Lösenord:</p><input type = 'password' name = 'losord' required>
         <input type = 'submit' value = 'Logga in'>
         </form>";
-}
-?>
+        }
+//if ($_SESSION["inlog"] == 0) {
+//    
+//}
+// else {
+//}
+        ?>
     </body>
 </html>

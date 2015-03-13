@@ -44,7 +44,7 @@ function boka($bokaId, $kundNamn, $kundMail, $kundTelefon) {
 
 //    echo $sql;
     echo "kund " . $kundNamn;
-    exit();
+//    exit();
     $sql = "SELECT * FROM tider WHERE id=$bokaId";
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
@@ -62,7 +62,7 @@ function boka($bokaId, $kundNamn, $kundMail, $kundTelefon) {
         <title>Boka tider</title>
     </head>
     <body>
-
+        <div id="kundInfo">
         Ange namn
         <br>
         <form method="POST"><input type="text" name="kundNamn"><br>
@@ -71,6 +71,7 @@ function boka($bokaId, $kundNamn, $kundMail, $kundTelefon) {
             Ange telefonnummer
             <input type="number" name="kundTelefon"><br>
             <input type="submit" name="kundInfo" value="Skicka"></form><br>
+            </div>
         <?php
         if (isset($_POST['kundInfo'])) {
 

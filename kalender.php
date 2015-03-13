@@ -14,6 +14,18 @@
                     <input type="submit" value="Nästa Månad" name="nastaManad">
                 </form>-->
         <button class="nastaManad">Nästa Månad</button>
+
+        <div id="kundInfo">
+            Ange namn
+            <br>
+            <form method="POST"><input type="text" name="kundNamn"><br>
+                Ange mailadress
+                <input type="email" name="kundMail"><br>
+                Ange telefonnummer
+                <input type="number" name="kundTelefon"><br>
+                <input type="submit" name="kundInfo" value="Skicka"></form><br>
+        </div>
+
     </body>
 </html>
 <?php
@@ -89,17 +101,42 @@ function ledigaDatum($available, $month, $day) {
         echo "<form method=POST><input type='hidden' value='" . $available['id'] . "' name='clickedDateId'></form>";
     }
 }
+
 function ledigaTider($available) {
+    echo '<div id=ledigaTider>';
     foreach ($available as $ava) {
         echo substr($ava["starttid"], 11, 8) . "<br>";
         echo "<form method=POST><input type='submit' value='Boka tid' name='bokaTid'><input type='hidden' value='" . $tid['id'] . "' name='bokaTidId'></form>";
+        echo '</div>';
     }
 }
-    $sql = "SELECT * FROM tider WHERE bokad=0";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    $available = $stmt->fetchAll();
 
-    ledigaDatum($available, $month, $day);
+function kundInfo(databasinformationen om den bokade tiden) {
+    $kundNamn = filter_input(INPUT_POST, 'kundNamn', FILTER_SANITIZE_SPECIAL_CHARS);
+    $kundMail = filter_input(INPUT_POST, 'kundMail', FILTER_SANITIZE_SPECIAL_CHARS);
+    $kundTelefon = filter_input(INPUT_POST, 'kundTelefon', FILTER_SANITIZE_SPECIAL_CHARS);
+    $today = date('Y-m-d');
+
+    $sql = "UPDATE tider SET kundNamn=$kundNamn, kundMail=$kundMail, kundTelefon=$kundTelefon, bokadDen=$today WHERE id=$bokadId ";
+    $mailText = "Du har nu bokat en tid den " . substr($bokad['starttid'], 0, 10) . " från klockan " . substr($bokad['starttid'], 11, 8) . " till klockan "
+            . substr($bokad['sluttid'], 11, 8) . ". Ett bekräftelsemail har skickats till " . kundMail . ". Tack för din bokning!";
+    $headers = "From: inger.m.lindell@spray.se\r\n";
+    $headers .= "content-type: text/plain; charset=UTF-8\r\n";
+            
+    mail($kundMail, "Bokningsbekräftelse", $mailText, $headers);
+    mail("inger.m.lindell@spray.se", "Bokningsbekräftelse", $mailText, $headers);
+    
+    if (boolean ==  FALSE){
+        echo 'Något gick fel, det gick inte att skicka mailet.';
+    }
+}
+
+$sql = "SELECT * FROM tider WHERE bokad=0";
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+$available = $stmt->fetchAll();
+
+ledigaDatum($available, $month, $day);
+var_dump($_GET);
 //
-    ?>
+?>

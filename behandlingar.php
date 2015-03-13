@@ -5,17 +5,19 @@ define("DB_PASSWORD", "");
 define("DB_NAME", "ga");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
-if (isset($_GET["add"])) {
-    $behandling = filter_input(INPUT_GET, 'behandling', FILTER_SANITIZE_SPECIAL_CHARS);
-    $langd = filter_input(INPUT_GET, 'langd', FILTER_SANITIZE_SPECIAL_CHARS);
-    $sql = "INSERT INTO `behandlingar`(`namn`, `längd`) VALUES ('$behandling','$langd')";
+if ($_POST["value"] == 1) {
 
+    if (isset($_GET["add"])) {
+        $behandling = filter_input(INPUT_GET, 'behandling', FILTER_SANITIZE_SPECIAL_CHARS);
+        $langd = filter_input(INPUT_GET, 'langd', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sql = "INSERT INTO `behandlingar`(`namn`, `längd`) VALUES ('$behandling','$langd')";
 
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(":behandling", $behandling);
-    $stmt->bindParam(":langd", $langd);
-    $stmt->execute();
-    $login = $stmt->fetch();
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindParam(":behandling", $behandling);
+        $stmt->bindParam(":langd", $langd);
+        $stmt->execute();
+        $login = $stmt->fetch();
+    }
 }
 ?>
 
