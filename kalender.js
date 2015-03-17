@@ -28,8 +28,13 @@ $(document).ready(function() {
         console.log(month);
         console.log(day);
         $.getJSON(
-                "kalender.php", year
-                );
+                "kalender.php", {year: "2015"}, function(data) {
+            console.log(data);
+            $.each(data.tid, function(year, month, day) {
+                
+            });//.each
+        }
+        );
     }
 
 });
