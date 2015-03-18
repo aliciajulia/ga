@@ -10,9 +10,6 @@
         <title>SinnesKällan - Boka nu</title>
     </head>
     <body>
-        <!--        <form method="POST">
-                    <input type="submit" value="Nästa Månad" name="nastaManad">
-                </form>-->
         <button class="nastaManad">Nästa Månad</button>
 
         <div id="kundInfo">
@@ -35,7 +32,7 @@ define("DB_PASSWORD", "");
 define("DB_NAME", "ga");
 $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
-var_dump($_GET);
+//var_dump($_GET);
 
 function korKalender($year, $month, $day) {
     $first_day = mktime(0, 0, 0, $month, 1, $year);
@@ -137,6 +134,9 @@ $sql = "SELECT * FROM tider WHERE bokad=0";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $available = $stmt->fetchAll();
+
+$year = json_encode(year);
+echo $year;
 
 ledigaDatum($available, $month, $day);
 var_dump($_GET);

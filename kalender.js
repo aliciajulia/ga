@@ -13,26 +13,22 @@ $(document).ready(function() {
         if (month == 12) {
             month = 1;
             year++;
-            getJson(year, month, day);
+            skickaMedJson(year, month, day);
         } else {
             month++;
-            getJson(year, month, day);
+            skickaMedJson(year, month, day);
         }
     }
     else {
-        getJson(year, month, day);
+        skickaMedJson(year, month, day);
     }
-
-    function getJson(year, month, day) {
-        console.log(year);
-        console.log(month);
-        console.log(day);
+    
+    function skickaMedJson(year, month, day) {
+        
         $.getJSON(
                 "kalender.php", {year: "2015"}, function(data) {
-            console.log(data);
-            $.each(data.tid, function(year, month, day) {
-                
-            });//.each
+            console.log(year);
+            
         }
         );
     }
