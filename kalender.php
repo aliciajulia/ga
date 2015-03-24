@@ -1,39 +1,4 @@
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="kalender.js"></script>
-        <link rel="stylesheet" href="kalender.css">
-
-        <title>SinnesKällan - Boka nu</title>
-    </head>
-    <body>
-        <button class="nastaManad">Nästa Månad</button>
-
-        <div id="kundInfo">
-            Ange namn
-            <br>
-            <form method="POST"><input type="text" name="kundNamn"><br>
-                Ange mailadress
-                <input type="email" name="kundMail"><br>
-                Ange telefonnummer
-                <input type="number" name="kundTelefon"><br>
-                <input type="submit" name="kundInfo" value="Skicka"></form><br>
-        </div>
-
-    </body>
-</html>
 <?php
-define("DB_SERVER", "localhost");
-define("DB_USER", "root");
-define("DB_PASSWORD", "");
-define("DB_NAME", "ga");
-$dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
-
-//var_dump($_GET);
-
 function korKalender($year, $month, $day) {
     $first_day = mktime(0, 0, 0, $month, 1, $year);
     $title = date('F', $first_day);
@@ -95,6 +60,58 @@ function korKalender($year, $month, $day) {
     echo '</div></div>';
 }
 
+if (isset($_POST["year"]) && isset($_POST["month"])  && isset($_POST["day"])) {
+    $year = $_POST["year"];
+    $month = $_POST["month"];
+    $day = $_POST["day"];
+    
+//    echo $year;
+//    $arr = array(1, 2, 3);
+//    var_dump($_POST);
+    header("content-type:application/json");
+    echo json_encode($year . $month . $day);
+//    korKalender($year, $month, $day);
+    return false;
+}
+//echo $message;
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="kalender.js"></script>
+        <link rel="stylesheet" href="kalender.css">
+
+        <title>SinnesKällan - Boka nu</title>
+    </head>
+    <body>
+        <button class="nastaManad">Nästa Månad</button>
+
+        <div id="kundInfo">
+            Ange namn
+            <br>
+            <form method="POST"><input type="text" name="kundNamn"><br>
+                Ange mailadress
+                <input type="email" name="kundMail"><br>
+                Ange telefonnummer
+                <input type="number" name="kundTelefon"><br>
+                <input type="submit" name="kundInfo" value="Skicka"></form><br>
+        </div>
+
+    </body>
+</html>
+<?php
+define("DB_SERVER", "localhost");
+define("DB_USER", "root");
+define("DB_PASSWORD", "");
+define("DB_NAME", "ga");
+$dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
+
+//var_dump($_GET);
+
+
+
 function ledigaDatum($available, $month, $day) {
     if ($month == substr($available["starttid"], 5, 2) && $day == substr($available["starttid"], 8, 2)) {
         echo "<form method=POST><input type='hidden' value='" . $available['id'] . "' name='clickedDateId'></form>";
@@ -135,10 +152,15 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $available = $stmt->fetchAll();
 
-$year = json_encode(year);
-echo $year;
+//hämta hem year,month och day från js
+
+echo $_POST["message"];
+echo 'hej';
+$post = file_get_contents('php://input');
+echo $post;
+
+
 
 ledigaDatum($available, $month, $day);
-var_dump($_GET);
-//
 ?>
+   

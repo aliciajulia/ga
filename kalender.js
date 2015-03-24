@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     var datum = new Date();
 
@@ -22,15 +22,32 @@ $(document).ready(function() {
     else {
         skickaMedJson(year, month, day);
     }
-    
+
     function skickaMedJson(year, month, day) {
+
+//        $.getJSON(
+//                "kalender.php", {year: "2015"}, function(data) {
+//            console.log(year);
+//            
+//        }
+//        );
+        console.log("inne");
+//        console.log(year);
         
-        $.getJSON(
-                "kalender.php", {year: "2015"}, function(data) {
-            console.log(year);
-            
-        }
-        );
+//        var message = JSON.stringify({message: "tjena"});
+        var year1 = JSON.stringify({year: year });
+        var month1 =JSON.stringify({month: month});
+        var day1 = JSON.stringify({day: day});
+        
+        $.post("kalender.php", {year: year1, month:month1, day:day1})
+                .done(function (data) {
+                    console.log("funkar", data);
+                })
+                .fail(function (){
+                    console.log("fail");
+                });
+        console.log("efter");
+
     }
 
 });
