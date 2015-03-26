@@ -1,4 +1,5 @@
 <?php
+
 function korKalender($year, $month, $day) {
     $first_day = mktime(0, 0, 0, $month, 1, $year);
     $title = date('F', $first_day);
@@ -60,19 +61,21 @@ function korKalender($year, $month, $day) {
     echo '</div></div>';
 }
 
-if (isset($_POST["year"]) && isset($_POST["month"])  && isset($_POST["day"])) {
+if (isset($_POST["year"]) && isset($_POST["month"]) && isset($_POST["day"])) {
     $year = $_POST["year"];
     $month = $_POST["month"];
     $day = $_POST["day"];
-    
+
 //    echo $year;
 //    $arr = array(1, 2, 3);
 //    var_dump($_POST);
     header("content-type:application/json");
     echo json_encode($year . $month . $day);
-//    korKalender($year, $month, $day);
+//    korKalender(json_encode($year , $month , $day));
     return false;
+//    exit();
 }
+var_dump($_POST);
 //echo $message;
 ?>
 <!DOCTYPE html>
@@ -114,7 +117,11 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
 
 function ledigaDatum($available, $month, $day) {
     if ($month == substr($available["starttid"], 5, 2) && $day == substr($available["starttid"], 8, 2)) {
-        echo "<form method=POST><input type='hidden' value='" . $available['id'] . "' name='clickedDateId'></form>";
+
+        foreach ($day as $days) {
+            echo "<form method=POST><input type='hidden' value='" . $available['id'] . "' name='clickedDateId' class='clickedDateId'></form>";
+//        göra alla rutor till form och sedan click på dom i js'
+        }
     }
 }
 

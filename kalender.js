@@ -1,4 +1,8 @@
-$(document).ready(function () {
+$(document).ready(function() {
+
+    $('form').submit(function(event) {
+        event.preventDefault();
+    });
 
     var datum = new Date();
 
@@ -23,6 +27,10 @@ $(document).ready(function () {
         skickaMedJson(year, month, day);
     }
 
+
+
+
+
     function skickaMedJson(year, month, day) {
 
 //        $.getJSON(
@@ -33,17 +41,17 @@ $(document).ready(function () {
 //        );
         console.log("inne");
 //        console.log(year);
-        
+
 //        var message = JSON.stringify({message: "tjena"});
-        var year1 = JSON.stringify({year: year });
-        var month1 =JSON.stringify({month: month});
-        var day1 = JSON.stringify({day: day});
-        
-        $.post("kalender.php", {year: year1, month:month1, day:day1})
-                .done(function (data) {
+//        var year1 = JSON.stringify({year: year});
+//        var month1 = JSON.stringify({month: month});
+//        var day1 = JSON.stringify({day: day});
+
+        $.post("kalender.php", {year: year, month: month, day: day},"json")
+                .done(function(data) {
                     console.log("funkar", data);
                 })
-                .fail(function (){
+                .fail(function() {
                     console.log("fail");
                 });
         console.log("efter");
