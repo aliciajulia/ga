@@ -94,7 +94,7 @@ var_dump($_POST);
         <div id="kundInfo">
             Ange namn
             <br>
-            <form method="POST"><input type="text" name="kundNamn"><br>
+            <form method="POST" action="sendMail.php"><input type="text" name="kundNamn"><br>
                 Ange mailadress
                 <input type="email" name="kundMail"><br>
                 Ange telefonnummer

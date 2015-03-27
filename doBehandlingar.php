@@ -1,4 +1,5 @@
 <?php
+if ($_SESSION["inlog"] == 1) {
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");
 define("DB_PASSWORD", "");
@@ -15,8 +16,8 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
     $stmt->bindParam(":langd", $langd);
     $stmt->execute();
     $login = $stmt->fetch();
-//}
-    header ('Location: index.php');
+}
+    header ('Location: admin.php');
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

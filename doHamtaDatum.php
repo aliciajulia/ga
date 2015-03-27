@@ -20,4 +20,4 @@ foreach ($tider as $tid) {
     $idArray[] = $tid["id"];
 }
 
-header ('Location: bokaJson.json');
+header ('Location: admin.php');

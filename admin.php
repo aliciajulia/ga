@@ -44,15 +44,15 @@ if (isset($_POST["anvnam"])) {
         }
 
         if ($_SESSION["inlog"] == 1) {
-            echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
+    echo "<p>Du är nu inloggad som " . $_SESSION["namn"] . "!</p>";
             echo "<form method='POST'><input type = 'submit' value = 'Logga ut' name='logout'></form>";
 //            
-            echo "<form method='POST' action='tider.php'><input type='submit' value='Byt Lösenord' name='bytLos'>
+            echo "<form method='POST' action='bytLos.php'><input type='submit' value='Byt Lösenord' name='bytLos'>
         <input='hidden' value='1' name='1'></form>";
             echo "<form method='POST' action='tider.php'><input type='submit' value='Redigera Tider' name='redigeraTider'>
         <input='hidden' value='1' name='1'></form>";
 
-            echo "<form method='POST' action='tider.php'><input type='submit' value='Lägg till behandling' name='laggTillBehandling'>
+            echo "<form method='POST' action='behandlingar.php'><input type='submit' value='Lägg till behandling' name='laggTillBehandling'>
         <input='hidden' value='1' name='1'></form>";
         } else {
             echo "<form method = 'POST'>

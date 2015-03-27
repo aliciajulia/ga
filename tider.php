@@ -25,7 +25,7 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
 
         <!--        <!--visa alla tider-->
         <?php
-        if ($_POST["value"] == 1) {
+//        if ($_POST["value"] == 1) { MÅSTE HA DEN HÄR RADEN
 
             $sql = "SELECT * FROM tider";
             $stmt = $dbh->prepare($sql);
@@ -47,9 +47,9 @@ $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8
                 echo "<form method='POST'><input type='hidden' value='" . $tid["id"] . "' name='id'><input type = 'submit' value = 'Delete' name='delete'></form>";
                 echo "<br>";
             }
-        }
+//        }
         ?>
-        <a href="index.php">Tillbaka</a>
+        <a href="admin.php">Tillbaka</a>
 
     </body>
 </html>
