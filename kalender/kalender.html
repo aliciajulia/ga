@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ny fil</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="kalender.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <button class="btnNext">nästa månad</button>
+            <button class="btnPrev">föregående månad</button>
+
+            <div id="kalender"></div>
+            <div id="dag"></div>
+            <form id="bokningsform" action="bokaTid.php" method="GET">
+                <p>Du kommer att boka en tid den <span id="selectedDate"></span> kl <span id="selectedTime"></span> hos oss.</p>
+                <input type="hidden" name="starttid" id="starttid">
+                Namn <input type="text" name="kundNamn" value="" required id="kundNamn"><br>
+                Telefon <input type="text" name="kundTelefon" value="" required id="kundTelefon"><br>
+                Email <input type="text" name="kundMail" value="" required id="kundMail"><br>
+                <button>boka</button>
+            </form>
+        </div>
+        <script src="jquery-1.11.2.min.js"></script>
+        <script src="kalender.js"></script>
+    </body>
+</html>

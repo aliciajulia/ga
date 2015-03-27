@@ -1,0 +1,18 @@
+
+.bookableDay {
+    color: green;
+}
+
+.disabled {
+    color: gray;
+}
+
+#dag { display:none;}
+
+#bokningsform {
+    display: none;
+    
+}
+span {
+    font-weight: bold;
+}
