@@ -1,7 +1,7 @@
 <?php
 
 // Connect to a MySQL database using PHP PDO
-$dsn = 'mysql:host=localhost;dbname=bokning;';
+$dsn = 'mysql:host=localhost;dbname=ga;';
 $login = 'root';
 $password = '';
 $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");

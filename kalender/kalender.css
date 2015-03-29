@@ -5,8 +5,20 @@
 
 .disabled {
     color: gray;
+    outline: solid red 1px;
+    width: 90px;
+    height: 20px;
 }
-
+.regular {
+    outline: solid green 1px;
+    width: 90px;
+    height: 20px;
+}
+.weekday {
+    outline: solid orange 1px;
+    width: 90px;
+    height: 20px;
+}
 #dag { display:none;}
 
 #bokningsform {
@@ -15,4 +27,13 @@
 }
 span {
     font-weight: bold;
+}
+/*omstylning till kalender*/
+ul {
+    list-style-type:none;
+    display: flex;
+}
+
+ul li {
+    padding: 2px;
 }
