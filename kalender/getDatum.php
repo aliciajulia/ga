@@ -54,6 +54,8 @@ switch ($month) {
         $tmp_year = $year - 1;
         $date[0]["prevMonth"] = $tmp_year . "-12-01";
         break;
+    case 02:
+        break;
     case 12:
         $tmp_year = $year + 1;
         $date[0]["nextMonth"] = $tmp_year . "-01-01";

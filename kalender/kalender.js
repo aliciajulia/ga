@@ -73,6 +73,7 @@ function getDatum(date) {
                 addDateListener();
                 nextMonth = data[0]["nextMonth"];
                 prevMonth = data[0]["prevMonth"];
+                $('.btnNext').text(data[0]["nextMonth"]);
                 $('#bokningManadRubrik').text(data[0]["currentMonth"]);
             });//done + getJSON
 }//getDatum
