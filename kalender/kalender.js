@@ -64,7 +64,8 @@ function getDatum(date) {
             .done(function (data) {
                 var tmp_html = "";
                 $.each(data, function (key, value) {
-                    tmp_html = tmp_html + "<li class='" + value.class + "'>" + value.starttid + "</li>";
+                    console.log(value);
+                    tmp_html = tmp_html + "<li class='" + value.class + "'><input type='hidden' value='" + value.starttid + "'>"+value.starttid+"</li>";
                     //kolla slut av vecka och skriv till veckan och resetta
                     if (key % 7 == 6) {
                         tmp_html = "<ul>" + tmp_html + "</ul>";

@@ -40,7 +40,7 @@ function addTimeListener() {
 
 function getTider(e) {
 //console.log("hej");
-    var starttid = $(e).text();
+    var starttid = $(e).attr("data-date");
     console.log(starttid);
     $('#kalender').slideToggle();
 
@@ -48,7 +48,7 @@ function getTider(e) {
             .done(function (data) {
                 console.log(data);
                 var tmp_html = "";
-                console.log(value.starttid);
+//                console.log(value.starttid);
                 $.each(data, function (key, value) {
                     console.log(key + ", " + value.starttid);
                     tmp_html = tmp_html + "<li class='bookableTime' data-date='" + value.starttid + "'>" + value.starttid + "</li>";
@@ -68,7 +68,7 @@ function getDatum(date) {
 //                var tmp_html2;
                 $.each(data, function (key, value) {
                     var datum = value.starttid.substr(8, 2);
-                    tmp_html = tmp_html + "<li class='" + value.class + "'>" + datum + "</li>";
+                    tmp_html = tmp_html + "<li class='" + value.class + "' data-date='"+value.starttid+"'>" + datum + "</li>";
 //                    tmp_html2 = tmp_html + "<li class='" + value.class + "'>" + value.starttid + "</li>";
                     //kolla slut av vecka och skriv till veckan och resetta
                     if (key % 7 == 6) {
