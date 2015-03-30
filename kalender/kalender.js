@@ -11,11 +11,15 @@ function main() {
 
 function initListeners() {
     $('.btnNext').click(function () {
-        console.log('nextMonth klickad');
         $('#kalender').children().remove();
-        console.log(nextMonth);
         getDatum(nextMonth);
-    });//click button
+    });//click next month
+
+    $('.btnPrev').click(function () {
+        $('#kalender').children().remove();
+        getDatum(prevMonth);
+    });//click next month
+
 }
 
 function addDateListener() {
@@ -56,7 +60,7 @@ function getTider(e) {
 }//getDatum
 
 function getDatum(date) {
-    $.getJSON("getDatum.php", {date: date})
+    $.getJSON("getDatum.php", {starttid: date})
             .done(function (data) {
                 var tmp_html = "";
                 $.each(data, function (key, value) {
@@ -73,7 +77,8 @@ function getDatum(date) {
                 addDateListener();
                 nextMonth = data[0]["nextMonth"];
                 prevMonth = data[0]["prevMonth"];
-                $('.btnNext').text(data[0]["nextMonth"]);
+                $('.btnNext').text(data[0]["nextMonth"].substr(0, 7));
+                $('.btnPrev').text(data[0]["prevMonth"].substr(0, 7));
                 $('#bokningManadRubrik').text(data[0]["currentMonth"]);
             });//done + getJSON
 }//getDatum
