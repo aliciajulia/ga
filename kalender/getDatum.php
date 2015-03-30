@@ -69,5 +69,6 @@ switch ($month) {
         break;
 }
 $date[0]["month"] = $month;
+$date[0]["currentMonth"] = date("F", $time);
 echo json_encode($date);
 

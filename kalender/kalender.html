@@ -8,6 +8,9 @@
     </head>
     <body>
         <div class="wrapper">
+            <!--fylls i av js-->
+            <h2 id="bokningManadRubrik"></h2>
+            
             <button class="btnNext">nästa månad</button>
             <button class="btnPrev">föregående månad</button>
             <div>
@@ -21,8 +24,12 @@
                     <li class='weekday'>Söndag</li>
                 </ul>
             </div>
+            
+            <!--månadsvy, fylls i av js-->
             <div id="kalender"></div>
+            <!--dagsvy, fylls i av js-->
             <div id="dag"></div>
+            <!--bokningsformuläret, visas av js-->
             <form id="bokningsform" action="bokaTid.php" method="GET">
                 <p>Du kommer att boka en tid den <span id="selectedDate"></span> kl <span id="selectedTime"></span> hos oss.</p>
                 <input type="hidden" name="starttid" id="starttid">
